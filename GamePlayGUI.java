@@ -4,12 +4,13 @@ import javax.swing.*;
 
 public class GamePlayGUI extends JPanel implements MouseListener
 {
+	// Container and layout variables to let the program switch between panels
 	private Container container;
 	private CardLayout cards;
 	
-	
 	public GamePlayGUI(Container container, CardLayout cards)
 	{
+		// Saves the container and layout used for this program
 		this.container = container;
 		this.cards = cards;
 		this.addMouseListener(this);
