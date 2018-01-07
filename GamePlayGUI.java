@@ -2,13 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GamePlayGUI extends JPanel implements MouseListener
+public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 {
 	// Container and layout variables to let the program switch between panels
 	private Container container;
 	private CardLayout cards;
 	private GamePlay game;
-	
+	private Timer timer;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -23,12 +23,13 @@ public class GamePlayGUI extends JPanel implements MouseListener
 		this.setBackground(Color.black);
 		game = new GamePlay(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_BOTTOM_EDGE, SCREEN_RIGHT_EDGE);
 		
+		timer = new Timer(5, this); // Creates timer for animation
+		timer.start();
 	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		g.setColor(Color.white);
-		g.drawString("Game Area", 200, 200);
 		
 		// Draws the center line
 		for (int i = 0; i < 10; i++)
@@ -36,10 +37,18 @@ public class GamePlayGUI extends JPanel implements MouseListener
 			g.fillRect(297, 12+50*i, 6, 25); // line width = 6, line length = 25
 		}
 		
+		// Draws the "ball"
 		g.fillRect(game.getBallX(), game.getBallY(), game.getBallSize(), game.getBallSize());
 		
-		g.fillRect(game.getPaddleX(true), game.getPaddleY(true), game.getPaddleWidth(), game.getPaddleLength());
-		g.fillRect(game.getPaddleX(false), game.getPaddleY(false), game.getPaddleWidth(), game.getPaddleLength());
+		// get left paddle or get right paddle
+		g.fillRect(game.getPaddleX("left"), game.getPaddleY("left"), game.getPaddleWidth(), game.getPaddleLength());
+		g.fillRect(game.getPaddleX("right"), game.getPaddleY("right"), game.getPaddleWidth(), game.getPaddleLength());
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		game.updatePositions();
+		this.repaint();
 	}
 	public void mouseClicked(MouseEvent e)
 	{

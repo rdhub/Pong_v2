@@ -1,10 +1,20 @@
 public class GamePlay
 {
-	private int ballX, ballY, ballSize;
-	private int leftPaddleX, leftPaddleY, rightPaddleX, rightPaddleY;
+	private double ballX, ballY;
+	private int ballSize, ballCenter;
+	private double ball_dx, ball_dy;
+	
+	private int leftPaddleX, rightPaddleX;
+	private double leftPaddleY, rightPaddleY;
 	private int paddleWidth, paddleLength;
 	private int gap_from_edge;
+	
 	private int screen_center_x, screen_center_y, screen_bottom_edge, screen_right_edge;
+	private boolean moving_right;
+	private int left_player_score, right_player_score, winning_score;
+	
+	
+	
 	
 	public GamePlay(int screen_center_x, int screen_center_y, int screen_bottom_edge, int screen_right_edge)
 	{
@@ -26,17 +36,27 @@ public class GamePlay
 		
 		rightPaddleX = screen_right_edge - gap_from_edge;
 		rightPaddleY = screen_center_y - paddleLength/2;
+		
+		// Randomize the starting direction of the ball (either left or right)
+		switch((int)(Math.random()*2))
+		{
+			case 0: moving_right = true; break;
+			case 1: moving_right = false; break;
+		}
+		
+		left_player_score = right_player_score = 0;
+		winning_score = 10;
 	}
 	
 	// Getters
 	public int getBallX()
 	{
-		return ballX;
+		return (int)Math.round(ballX);
 	}
 	
 	public int getBallY()
 	{
-		return ballY;
+		return (int)Math.round(ballY);
 	}
 	
 	public int getBallSize()
@@ -54,24 +74,37 @@ public class GamePlay
 		return paddleLength;
 	}
 	
-	public int getPaddleX(boolean left)
+	public int getGapFromEdge()
 	{
-		if(left)
+		return gap_from_edge;
+	}
+	
+	public int getPaddleX(String paddle)
+	{
+		if(paddle.equals("left"))
 			return leftPaddleX;
 		else
 			return rightPaddleX;
 	}
 	
-	public int getPaddleY(boolean left)
+	public int getPaddleY(String paddle)
 	{
-		if(left)
-			return leftPaddleY;
+		if(paddle.equals("left"))
+			return (int)Math.round(leftPaddleY);
 		else
-			return rightPaddleY;
+			return (int)Math.round(rightPaddleY);
 	}
 	
-	public int getGapFromEdge()
+	public int getPaddleCenterY(String paddle)
 	{
-		return gap_from_edge;
+		if(paddle.equals("left"))
+			return (int)Math.round(leftPaddleY + paddleLength/2);
+		else
+			return (int)Math.round(rightPaddleY + paddleLength/2);
+	}
+	
+	public void updatePositions()
+	{
+		
 	}
 }
