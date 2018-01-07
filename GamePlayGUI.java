@@ -7,10 +7,7 @@ public class GamePlayGUI extends JPanel implements MouseListener
 	// Container and layout variables to let the program switch between panels
 	private Container container;
 	private CardLayout cards;
-	private int ballX, ballY, ballSize;
-	private int leftPaddleX, leftPaddleY, rightPaddleX, rightPaddleY;
-	private int paddleWidth, paddleLength;
-	private int gap_from_edge;
+	private GamePlay game;
 	
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
@@ -24,20 +21,8 @@ public class GamePlayGUI extends JPanel implements MouseListener
 		this.cards = cards;
 		this.addMouseListener(this);
 		this.setBackground(Color.black);
+		game = new GamePlay(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_BOTTOM_EDGE, SCREEN_RIGHT_EDGE);
 		
-		ballSize = 20;
-		ballX = SCREEN_CENTER_X - ballSize/2;
-		ballY = SCREEN_CENTER_Y - ballSize/2;
-		
-		paddleWidth = 10;
-		paddleLength = 50;
-		gap_from_edge = 40;
-		
-		leftPaddleX = gap_from_edge;
-		leftPaddleY = SCREEN_CENTER_Y - paddleLength/2;
-		
-		rightPaddleX = SCREEN_RIGHT_EDGE - gap_from_edge;
-		rightPaddleY = SCREEN_CENTER_Y - paddleLength/2;
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -51,10 +36,10 @@ public class GamePlayGUI extends JPanel implements MouseListener
 			g.fillRect(297, 12+50*i, 6, 25); // line width = 6, line length = 25
 		}
 		
-		g.fillRect(ballX, ballY, ballSize, ballSize);
+		g.fillRect(game.getBallX(), game.getBallY(), game.getBallSize(), game.getBallSize());
 		
-		g.fillRect(leftPaddleX, leftPaddleY, paddleWidth, paddleLength);
-		g.fillRect(rightPaddleX, rightPaddleY, paddleWidth, paddleLength);
+		g.fillRect(game.getPaddleX(true), game.getPaddleY(true), game.getPaddleWidth(), game.getPaddleLength());
+		g.fillRect(game.getPaddleX(false), game.getPaddleY(false), game.getPaddleWidth(), game.getPaddleLength());
 	}
 	public void mouseClicked(MouseEvent e)
 	{
