@@ -14,7 +14,7 @@ public class GamePlayGUI extends JPanel implements MouseListener
 		this.container = container;
 		this.cards = cards;
 		this.addMouseListener(this);
-		this.setBackground(Color.blue);
+		this.setBackground(Color.black);
 	}
 	public void paintComponent(Graphics g)
 	{

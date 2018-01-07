@@ -9,6 +9,7 @@ public class Pong extends JApplet
 	private CardLayout cards;
 	private MainMenuGUI mainmenuGUI;
 	private GamePlayGUI gameplayGUI;
+	//~ private InstructionsGUI instructionsGUI;
 	
 	public void init()
 	{
