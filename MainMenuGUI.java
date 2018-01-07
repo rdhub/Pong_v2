@@ -39,20 +39,8 @@ public class MainMenuGUI extends JPanel implements MouseListener
 	}
 	public void paintComponent(Graphics g)
 	{
-		// Rectangles are added for use when determining the boundaries for clicking
 		super.paintComponent(g);
-		/*g.setColor(Color.white);
-		g.setFont(new Font("Courier", Font.BOLD, 40));
 		
-		g.drawRect(250, 50, 100, 30);
-		g.drawString("PONG", 252, 80);
-		
-		g.setFont(new Font("Courier", Font.BOLD, 25));
-		//~ g.drawRect(230, 350, 140, 23); //bottom of box is y = 373
-		//~ g.drawString("Play Game", 232, 370);
-		
-		g.drawRect(210, 400, 180, 23); //bottom of box is y = 423
-		g.drawString("Instructions", 210, 420);*/
 	}
 	public void mouseClicked(MouseEvent e)
 	{
