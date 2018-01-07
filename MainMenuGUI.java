@@ -9,11 +9,12 @@ public class MainMenuGUI extends JPanel implements MouseListener
 	private CardLayout cards;
 	private GamePlayGUI gameplayGUI;
 	
-	public MainMenuGUI(Container container, CardLayout cards)
+	public MainMenuGUI(Container container, CardLayout cards, GamePlayGUI gameplayGUI)
 	{
 		// Saves the container and layout used for this program
 		this.container = container;
 		this.cards = cards;
+		this.gameplayGUI = gameplayGUI;
 		
 		this.setLayout(null);
 		this.addMouseListener(this);
@@ -48,9 +49,14 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		int mouseY = e.getY();
 		
 		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 23)
+		{
 			cards.show(container, "Game Area");
+			gameplayGUI.startGame();
+		}
 		if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 23)
+		{
 			;//~ cards.show(container, "Instructions");
+		}
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}

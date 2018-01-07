@@ -24,7 +24,6 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		game = new GamePlay(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_BOTTOM_EDGE, SCREEN_RIGHT_EDGE);
 		
 		timer = new Timer(5, this); // Creates timer for animation
-		timer.start();
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -45,6 +44,10 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		g.fillRect(game.getPaddleX("right"), game.getPaddleY("right"), game.getPaddleWidth(), game.getPaddleLength());
 	}
 	
+	public void startGame()
+	{
+		timer.start();
+	}
 	public void actionPerformed(ActionEvent e)
 	{
 		game.updatePositions();
