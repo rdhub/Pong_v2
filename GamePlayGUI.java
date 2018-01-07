@@ -51,6 +51,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	public void startGame()
 	{
 		timer.start();
+		this.requestFocus();
 	}
 	public void actionPerformed(ActionEvent e)
 	{
