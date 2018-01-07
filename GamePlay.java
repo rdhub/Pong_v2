@@ -13,6 +13,8 @@ public class GamePlay
 	private boolean ball_moving_right;
 	private int left_player_score, right_player_score, winning_score;
 	
+	private boolean left_moving_up, left_moving_down, right_moving_up, right_moving_down;
+	
 	public GamePlay(int screen_center_x, int screen_center_y, int screen_bottom_edge, int screen_right_edge)
 	{
 		this.screen_center_x = screen_center_x;
@@ -31,8 +33,10 @@ public class GamePlay
 		leftPaddleX = gap_from_edge;
 		leftPaddleY = screen_center_y - paddleLength/2;
 		
-		rightPaddleX = screen_right_edge - gap_from_edge;
+		rightPaddleX = screen_right_edge - gap_from_edge - paddleWidth;
 		rightPaddleY = screen_center_y - paddleLength/2;
+		
+		left_moving_down = left_moving_up = right_moving_down = right_moving_up = false;
 		
 		// Randomize the starting direction of the ball (either left or right)
 		switch((int)(Math.random()*2))
@@ -149,5 +153,31 @@ public class GamePlay
 		
 		ballX += ball_dx;
 		ballY += ball_dy;
+		
+		if(left_moving_up)
+			leftPaddleY -= 1;
+		if(left_moving_down)
+			leftPaddleY += 1;
+		if(right_moving_up)
+			rightPaddleY -= 1;
+		if(right_moving_down)
+			rightPaddleY += 1;
+	}
+	
+	public void setLeftMovingUp(boolean move)
+	{
+		left_moving_up = move;
+	}
+	public void setLeftMovingDown(boolean move)
+	{
+		left_moving_down = move;
+	}
+	public void setRightMovingUp(boolean move)
+	{
+		right_moving_up = move;
+	}
+	public void setRightMovingDown(boolean move)
+	{
+		right_moving_down = move;
 	}
 }

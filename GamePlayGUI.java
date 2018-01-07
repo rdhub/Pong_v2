@@ -14,8 +14,6 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private static final int SCREEN_RIGHT_EDGE = 600;
 	private static final int SCREEN_BOTTOM_EDGE = 500;
 	
-	private boolean left_moving_up, left_moving_down, right_moving_up, right_moving_down;
-	
 	public GamePlayGUI(Container container, CardLayout cards)
 	{
 		// Saves the container and layout used for this program
@@ -28,7 +26,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		this.setBackground(Color.black);
 		game = new GamePlay(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_BOTTOM_EDGE, SCREEN_RIGHT_EDGE);
 		
-		left_moving_down = left_moving_up = right_moving_down = right_moving_up = false;
+		
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -57,7 +55,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		game.updatePositions();
-		this.requestFocus();
+		
 		this.repaint();
 	}
 	public void mouseClicked(MouseEvent e)
@@ -66,15 +64,42 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e)
+	{
+		this.requestFocus();
+	}
 	public void mouseExited(MouseEvent e) {}
 	public void keyPressed(KeyEvent e)
 	{
-		System.out.println("here");
-		int key = e.getKeyCode();
-		if(key == 'a')
-			System.out.println("a");
+		char letter = e.getKeyChar();
+		
+		// controls for left player
+		if(letter == 'w')
+			game.setLeftMovingUp(true);
+		if(letter == 's')
+			game.setLeftMovingDown(true);
+			
+		// controls for right player
+		if(letter == 'i')
+			game.setRightMovingUp(true);
+		if(letter == 'k')
+			game.setRightMovingDown(true);
 	}
 	public void keyTyped(KeyEvent e) {}
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e)
+	{
+		char letter = e.getKeyChar();
+		
+		// controls for left player
+		if(letter == 'w')
+			game.setLeftMovingUp(false);
+		if(letter == 's')
+			game.setLeftMovingDown(false);
+			
+		// controls for right player
+		if(letter == 'i')
+			game.setRightMovingUp(false);
+		if(letter == 'k')
+			game.setRightMovingDown(false);
+	}
 }
