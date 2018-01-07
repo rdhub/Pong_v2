@@ -117,6 +117,36 @@ public class GamePlay
 		if(ballX + ball_dx < 0 || ballX + ballSize + ball_dx > screen_right_edge)
 			ball_dx = -ball_dx;
 		
+		// Checks if the ball collides with right paddle
+		if(ballX + ballSize + ball_dx > rightPaddleX &&
+			(ballY + ball_dy < rightPaddleY + paddleLength &&
+				ballY + ballSize + ball_dy > rightPaddleY))
+		{
+			double ballCenterY = ballY + ballSize/2;
+			double rightPaddleCenterY = rightPaddleY + paddleLength/2;
+			
+			// Finds the dist b/w the center of paddle and the ball, and maps it to 45 degrees to find the bounce off angle
+			int angle = (int)((ballCenterY - rightPaddleCenterY)/paddleLength/2 *45);
+			ball_dy = 2*Math.sin(Math.toRadians(angle));
+			
+			ball_dx = -ball_dx;
+		}
+		
+		// Checks if the ball collides with left paddle
+		if(ballX + ball_dx < leftPaddleX + paddleWidth &&
+			(ballY + ball_dy < leftPaddleY + paddleLength &&
+				ballY + ballSize + ball_dy > leftPaddleY))
+		{
+			double ballCenterY = ballY + ballSize/2;
+			double leftPaddleCenterY = leftPaddleY + paddleLength/2;
+			
+			// Finds the dist b/w the center of paddle and the ball, and maps it to 45 degrees to find the bounce off angle
+			int angle = (int)((ballCenterY - leftPaddleCenterY)/paddleLength/2 *45);
+			ball_dy = 2*Math.sin(Math.toRadians(angle));
+			
+			ball_dx = -ball_dx;
+		}
+		
 		ballX += ball_dx;
 		ballY += ball_dy;
 	}
