@@ -26,15 +26,16 @@ public class GamePlay
 		
 		ballSize = 10;
 		ballMoveSpeed = 1;
+		ball_dx = ballMoveSpeed;
 		ballX = screen_center_x - ballSize/2;
 		ballY = screen_center_y - ballSize/2;
 		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
 		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
-		switch((int)(Math.random()*2))
-		{
-			case 0: ball_dx = ballMoveSpeed; ball_moving_right = true; break;
-			case 1: ball_dx = -ballMoveSpeed; ball_moving_right = false; break;
-		}
+		//~ switch((int)(Math.random()*2))
+		//~ {
+			//~ case 0: ball_dx = ballMoveSpeed; ball_moving_right = true; break;
+			//~ case 1: ball_dx = -ballMoveSpeed; ball_moving_right = false; break;
+		//~ }
 		
 		paddleWidth = 10;
 		paddleLength = 50;
@@ -147,10 +148,9 @@ public class GamePlay
 			resetBall();
 			left_player_score++;
 		}
-		
 
 		// Checks if the ball collides with right paddle
-		if(ballX + ballSize + ball_dx == rightPaddleX && //ballX + ballSize + ball_dx < rightPaddleX + paddleWidth && 
+		if(ballX + ballSize + ball_dx > rightPaddleX && ballX + ballSize + ball_dx < rightPaddleX + paddleWidth && 
 			(ballY + ball_dy < rightPaddleY + paddleLength && ballY + ballSize + ball_dy > rightPaddleY))
 		{
 			double ballCenterY = ballY + ballSize/2;
@@ -160,13 +160,11 @@ public class GamePlay
 			int angle = (int)((ballCenterY - rightPaddleCenterY)/(paddleLength/2) * 45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
-			//~ ball_moving_right = true;
-			//~ ballX = rightPaddleX - ballSize; // to avoid ball getting stuck in paddle
-			ball_dx = -ball_dx;
+			ball_moving_right = false;
 		}
 		
 		// Checks if the ball collides with left paddle
-		if(ballX + ball_dx == leftPaddleX + paddleWidth &&// ballX + ball_dx > leftPaddleX && 
+		if(ballX - ball_dx < leftPaddleX + paddleWidth && ballX - ball_dx > leftPaddleX && 
 			(ballY + ball_dy < leftPaddleY + paddleLength && ballY + ballSize + ball_dy > leftPaddleY))
 		{
 			double ballCenterY = ballY + ballSize/2;
@@ -176,17 +174,16 @@ public class GamePlay
 			int angle = (int)((ballCenterY - leftPaddleCenterY)/(paddleLength/2) * 45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
-			//~ ball_moving_right = false;
-			//~ ballX = leftPaddleX + paddleWidth; // to avoid ball getting stuck in paddle
-			ball_dx = -ball_dx;
+			ball_moving_right = true;
 		}
 		
-		//~ if(ball_moving_right && ball_dx < 0)
-			//~ ball_dx = -ball_dx;
-		//~ if(!ball_moving_right && ball_dx > 0)
-			//~ ball_dx = -ball_dx;
-			
-		ballX += ball_dx;
+		// Update the horizontal ball position based on the current direction
+		if(ball_moving_right)
+			ballX += ball_dx;
+		if(!ball_moving_right)
+			ballX -= ball_dx;
+		
+		// Updates the y position of the ball
 		ballY += ball_dy;
 		
 		if(left_moving_up && leftPaddleY - paddleMoveSpeed >= 0)
@@ -224,8 +221,8 @@ public class GamePlay
 		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
 		switch((int)(Math.random()*2))
 		{
-			case 0: ball_dx = ballMoveSpeed; ball_moving_right = true; break;
-			case 1: ball_dx = -ballMoveSpeed; ball_moving_right = false; break;
+			case 0: ball_moving_right = true; break;
+			case 1: ball_moving_right = false; break;
 		}
 	}
 }
