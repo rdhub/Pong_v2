@@ -9,6 +9,8 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private CardLayout cards;
 	private GamePlay game;
 	private Timer timer;
+	private JLabel left_player_score, right_player_score;
+	private int score_text_width;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -26,7 +28,20 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		this.setBackground(Color.black);
 		game = new GamePlay(SCREEN_CENTER_X, SCREEN_CENTER_Y, SCREEN_BOTTOM_EDGE, SCREEN_RIGHT_EDGE);
 		
+		this.setLayout(null);
 		
+		score_text_width = 60;
+		left_player_score = new JLabel("0", SwingConstants.CENTER);
+		left_player_score.setFont(new Font("Courier", Font.BOLD, 40));
+		left_player_score.setBounds(295 - score_text_width, 8, score_text_width, 30);
+		left_player_score.setForeground(Color.white);
+		this.add(left_player_score);
+		
+		right_player_score = new JLabel("0", SwingConstants.CENTER);
+		right_player_score.setFont(new Font("Courier", Font.BOLD, 40));
+		right_player_score.setBounds(305, 8, score_text_width, 30);
+		right_player_score.setForeground(Color.white);
+		this.add(right_player_score);
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -39,7 +54,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		{
 			g.fillRect(297, 12+50*i, 6, 25); // line width = 6, line length = 25
 		}
-		
+
 		// Draws the "ball"
 		g.fillRect(game.getBallX(), game.getBallY(), game.getBallSize(), game.getBallSize());
 		
@@ -56,7 +71,8 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		game.updatePositions();
-		
+		left_player_score.setText("" + game.getPlayerScore("left"));
+		right_player_score.setText("" + game.getPlayerScore("right"));
 		this.repaint();
 	}
 	public void mouseClicked(MouseEvent e)

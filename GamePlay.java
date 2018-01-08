@@ -25,9 +25,16 @@ public class GamePlay
 		this.screen_right_edge = screen_right_edge;
 		
 		ballSize = 20;
+		ballMoveSpeed = 3;
 		ballX = screen_center_x - ballSize/2;
 		ballY = screen_center_y - ballSize/2;
-		ballMoveSpeed = 1;
+		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
+		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
+		switch((int)(Math.random()*2))
+		{
+			case 0: ball_dx = ballMoveSpeed; ball_moving_right = true; break;
+			case 1: ball_dx = -ballMoveSpeed; ball_moving_right = false; break;
+		}
 		
 		paddleWidth = 10;
 		paddleLength = 50;
@@ -52,15 +59,6 @@ public class GamePlay
 		left_player_score = right_player_score = 0;
 		winning_score = 10;
 		
-		ball_dx = 0;
-		ball_dy = 0;
-		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
-		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
-		switch((int)(Math.random()*2))
-		{
-			case 0: ball_dx = ballMoveSpeed; ball_moving_right = true; break;
-			case 1: ball_dx = -ballMoveSpeed; ball_moving_right = false; break;
-		}
 	}
 	
 	// Getters
@@ -94,28 +92,43 @@ public class GamePlay
 		return gap_from_edge;
 	}
 	
+	public int getPlayerScore(String player)
+	{
+		if(player.equals("left"))
+			return left_player_score;
+		else if(player.equals("right"))
+			return right_player_score;
+		else
+			return 0;
+	}
 	public int getPaddleX(String paddle)
 	{
 		if(paddle.equals("left"))
 			return leftPaddleX;
-		else
+		else if(paddle.equals("right"))
 			return rightPaddleX;
+		else
+			return 0;
 	}
 	
 	public int getPaddleY(String paddle)
 	{
 		if(paddle.equals("left"))
 			return (int)Math.round(leftPaddleY);
-		else
+		else if(paddle.equals("right"))
 			return (int)Math.round(rightPaddleY);
+		else
+			return 0;
 	}
 	
 	public int getPaddleCenterY(String paddle)
 	{
 		if(paddle.equals("left"))
 			return (int)Math.round(leftPaddleY + paddleLength/2);
-		else
+		else if(paddle.equals("right"))
 			return (int)Math.round(rightPaddleY + paddleLength/2);
+		else
+			return 0;
 	}
 	
 	public void updatePositions()
