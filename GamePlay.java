@@ -31,7 +31,7 @@ public class GamePlay
 		
 		paddleWidth = 10;
 		paddleLength = 50;
-		gap_from_edge = 40;
+		gap_from_edge = 30;
 		paddleMoveSpeed = 2.5;
 		
 		leftPaddleX = gap_from_edge;
