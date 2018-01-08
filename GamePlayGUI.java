@@ -9,8 +9,9 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private CardLayout cards;
 	private GamePlay game;
 	private Timer timer;
-	private JLabel left_player_score, right_player_score;
+	private JLabel left_player_score, right_player_score, left_winner, right_winner;
 	private int score_text_width;
+	private int win_text_width;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -42,6 +43,21 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		right_player_score.setBounds(305, 8, score_text_width, 30);
 		right_player_score.setForeground(Color.white);
 		this.add(right_player_score);
+		
+		win_text_width = 250;
+		right_winner = new JLabel("Right Player Wins!", SwingConstants.CENTER);
+		right_winner.setFont(new Font("Courier", Font.BOLD, 20));
+		right_winner.setBounds(325, 100, win_text_width, 30);
+		right_winner.setForeground(Color.white);
+		//~ right_winner.setVisible(false);
+		this.add(right_winner);
+		
+		left_winner = new JLabel("Left Player Wins!", SwingConstants.CENTER);
+		left_winner.setFont(new Font("Courier", Font.BOLD, 20));
+		left_winner.setBounds(25, 100, win_text_width, 30);
+		left_winner.setForeground(Color.white);
+		//~ left_winner.setVisible(false);
+		this.add(left_winner);
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -55,8 +71,9 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			g.fillRect(297, 12+50*i, 6, 25); // line width = 6, line length = 25
 		}
 
-		// Draws the "ball"
-		g.fillRect(game.getBallX(), game.getBallY(), game.getBallSize(), game.getBallSize());
+		// Draws the "ball" if the game is not over
+		if(!game.isGameOver())
+			g.fillRect(game.getBallX(), game.getBallY(), game.getBallSize(), game.getBallSize());
 		
 		// get left paddle or get right paddle
 		g.fillRect(game.getPaddleX("left"), game.getPaddleY("left"), game.getPaddleWidth(), game.getPaddleLength());
@@ -66,11 +83,25 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	public void startGame()
 	{
 		timer.start();
+		game.resetGame();
+		right_winner.setVisible(false);
+		left_winner.setVisible(false);
 		this.requestFocus();
 	}
 	public void actionPerformed(ActionEvent e)
 	{
-		game.updatePositions();
+		if(!game.isGameOver())
+		{
+			game.updatePositions();
+		}
+		else
+		{
+			if(game.getWinner().equals("right"))
+				right_winner.setVisible(true);
+			if(game.getWinner().equals("left"))
+				left_winner.setVisible(true);
+			timer.stop();
+		}
 		left_player_score.setText("" + game.getPlayerScore("left"));
 		right_player_score.setText("" + game.getPlayerScore("right"));
 		this.repaint();
