@@ -147,6 +147,7 @@ public class GamePlay
 			resetBall();
 			left_player_score++;
 		}
+		
 
 		// Checks if the ball collides with right paddle
 		if(ballX + ballSize + ball_dx == rightPaddleX && //ballX + ballSize + ball_dx < rightPaddleX + paddleWidth && 
@@ -156,7 +157,7 @@ public class GamePlay
 			double rightPaddleCenterY = rightPaddleY + paddleLength/2;
 			
 			// Finds the dist b/w the center of paddle and the ball, and maps it to 45 degrees to find the bounce off angle
-			int angle = (int)((ballCenterY - rightPaddleCenterY)/paddleLength/2 *45);
+			int angle = (int)((ballCenterY - rightPaddleCenterY)/(paddleLength/2) * 45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
 			//~ ball_moving_right = true;
@@ -172,7 +173,7 @@ public class GamePlay
 			double leftPaddleCenterY = leftPaddleY + paddleLength/2;
 			
 			// Finds the dist b/w the center of paddle and the ball, and maps it to 45 degrees to find the bounce off angle
-			int angle = (int)((ballCenterY - leftPaddleCenterY)/paddleLength/2 *45);
+			int angle = (int)((ballCenterY - leftPaddleCenterY)/(paddleLength/2) * 45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
 			//~ ball_moving_right = false;
