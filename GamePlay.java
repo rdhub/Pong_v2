@@ -24,8 +24,8 @@ public class GamePlay
 		this.screen_bottom_edge = screen_bottom_edge;
 		this.screen_right_edge = screen_right_edge;
 		
-		ballSize = 20;
-		ballMoveSpeed = 3;
+		ballSize = 10;
+		ballMoveSpeed = 1;
 		ballX = screen_center_x - ballSize/2;
 		ballY = screen_center_y - ballSize/2;
 		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
@@ -149,7 +149,7 @@ public class GamePlay
 		}
 
 		// Checks if the ball collides with right paddle
-		if(ballX + ballSize + ball_dx > rightPaddleX && //ballX + ballSize + ball_dx < rightPaddleX + paddleWidth && 
+		if(ballX + ballSize + ball_dx == rightPaddleX && //ballX + ballSize + ball_dx < rightPaddleX + paddleWidth && 
 			(ballY + ball_dy < rightPaddleY + paddleLength && ballY + ballSize + ball_dy > rightPaddleY))
 		{
 			double ballCenterY = ballY + ballSize/2;
@@ -159,12 +159,13 @@ public class GamePlay
 			int angle = (int)((ballCenterY - rightPaddleCenterY)/paddleLength/2 *45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
-			ball_moving_right = true;
-			ballX = rightPaddleX - ballSize; // to avoid ball getting stuck in paddle
+			//~ ball_moving_right = true;
+			//~ ballX = rightPaddleX - ballSize; // to avoid ball getting stuck in paddle
+			ball_dx = -ball_dx;
 		}
 		
 		// Checks if the ball collides with left paddle
-		if(ballX + ball_dx < leftPaddleX + paddleWidth &&// ballX + ball_dx > leftPaddleX && 
+		if(ballX + ball_dx == leftPaddleX + paddleWidth &&// ballX + ball_dx > leftPaddleX && 
 			(ballY + ball_dy < leftPaddleY + paddleLength && ballY + ballSize + ball_dy > leftPaddleY))
 		{
 			double ballCenterY = ballY + ballSize/2;
@@ -174,25 +175,26 @@ public class GamePlay
 			int angle = (int)((ballCenterY - leftPaddleCenterY)/paddleLength/2 *45);
 			ball_dy = 2*Math.sin(Math.toRadians(angle));
 			
-			ball_moving_right = false;
-			ballX = leftPaddleX + paddleWidth; // to avoid ball getting stuck in paddle
+			//~ ball_moving_right = false;
+			//~ ballX = leftPaddleX + paddleWidth; // to avoid ball getting stuck in paddle
+			ball_dx = -ball_dx;
 		}
 		
-		if(ball_moving_right && ball_dx < 0)
-			ball_dx = -ball_dx;
-		if(!ball_moving_right && ball_dx > 0)
-			ball_dx = -ball_dx;
+		//~ if(ball_moving_right && ball_dx < 0)
+			//~ ball_dx = -ball_dx;
+		//~ if(!ball_moving_right && ball_dx > 0)
+			//~ ball_dx = -ball_dx;
 			
 		ballX += ball_dx;
 		ballY += ball_dy;
 		
-		if(left_moving_up)
+		if(left_moving_up && leftPaddleY - paddleMoveSpeed >= 0)
 			leftPaddleY -= paddleMoveSpeed;
-		if(left_moving_down)
+		if(left_moving_down && leftPaddleY + paddleMoveSpeed + paddleLength <= screen_bottom_edge)
 			leftPaddleY += paddleMoveSpeed;
-		if(right_moving_up)
+		if(right_moving_up && rightPaddleY - paddleMoveSpeed >= 0)
 			rightPaddleY -= paddleMoveSpeed;
-		if(right_moving_down)
+		if(right_moving_down && rightPaddleY + paddleMoveSpeed + paddleLength <= screen_bottom_edge)
 			rightPaddleY += paddleMoveSpeed;
 	}
 	
