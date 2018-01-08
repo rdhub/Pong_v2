@@ -27,10 +27,7 @@ public class GamePlay
 		ballSize = 10;
 		ballMoveSpeed = 5;
 		ball_dx = ballMoveSpeed;
-		ballX = screen_center_x - ballSize/2;
-		ballY = screen_center_y - ballSize/2;
-		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
-		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
+		resetBall(); // Resets the ball to the center of the screen
 		
 		paddleWidth = 10;
 		paddleLength = 50;
@@ -44,13 +41,6 @@ public class GamePlay
 		rightPaddleY = screen_center_y - paddleLength/2;
 		
 		left_moving_down = left_moving_up = right_moving_down = right_moving_up = false;
-		
-		// Randomize the starting direction of the ball (either left or right)
-		switch((int)(Math.random()*2))
-		{
-			case 0: ball_moving_right = true; break;
-			case 1: ball_moving_right = false; break;
-		}
 		
 		left_player_score = right_player_score = 0;
 		winning_score = 10;
@@ -131,6 +121,8 @@ public class GamePlay
 		ballY = screen_center_y - ballSize/2;
 		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
 		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
+		
+		// Randomize the starting direction of the ball (either left or right)
 		switch((int)(Math.random()*2))
 		{
 			case 0: ball_moving_right = true; break;

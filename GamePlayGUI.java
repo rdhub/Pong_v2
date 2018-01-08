@@ -10,6 +10,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private GamePlay game;
 	private Timer timer;
 	private JLabel left_player_score, right_player_score, left_winner, right_winner;
+	private JLabel play_again, main_menu;
 	private int score_text_width;
 	private int win_text_width;
 	private static final int SCREEN_CENTER_X = 300;
@@ -49,15 +50,35 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		right_winner.setFont(new Font("Courier", Font.BOLD, 20));
 		right_winner.setBounds(325, 100, win_text_width, 30);
 		right_winner.setForeground(Color.white);
-		//~ right_winner.setVisible(false);
+		right_winner.setVisible(false);
 		this.add(right_winner);
 		
 		left_winner = new JLabel("Left Player Wins!", SwingConstants.CENTER);
 		left_winner.setFont(new Font("Courier", Font.BOLD, 20));
 		left_winner.setBounds(25, 100, win_text_width, 30);
 		left_winner.setForeground(Color.white);
-		//~ left_winner.setVisible(false);
+		left_winner.setVisible(false);
 		this.add(left_winner);
+		
+		play_again = new JLabel("Play Again", SwingConstants.CENTER);
+		play_again.setFont(new Font("Courier", Font.BOLD, 20));
+		play_again.setBounds(200, 350, 200, 30);
+		play_again.setForeground(Color.white);
+		play_again.setBackground(Color.black);
+		play_again.setOpaque(true);
+		play_again.setVisible(false); // Hides label initially
+		this.add(play_again);
+		
+		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
+		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
+		main_menu.setBounds(150, 400, 300, 30);
+		main_menu.setForeground(Color.white);
+		main_menu.setBackground(Color.black);
+		main_menu.setOpaque(true);
+		main_menu.setVisible(false); // Hides label initially
+		this.add(main_menu);
+		
+		
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -86,6 +107,8 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		game.resetGame();
 		right_winner.setVisible(false);
 		left_winner.setVisible(false);
+		play_again.setVisible(false);
+		main_menu.setVisible(false);
 		this.requestFocus();
 	}
 	public void actionPerformed(ActionEvent e)
@@ -101,6 +124,8 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			if(game.getWinner().equals("left"))
 				left_winner.setVisible(true);
 			timer.stop();
+			play_again.setVisible(true);
+			main_menu.setVisible(true);
 		}
 		left_player_score.setText("" + game.getPlayerScore("left"));
 		right_player_score.setText("" + game.getPlayerScore("right"));
@@ -108,7 +133,19 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	}
 	public void mouseClicked(MouseEvent e)
 	{
-		cards.show(container, "Main Menu");
+		int mouseX = e.getX();
+		int mouseY = e.getY();
+		if(game.isGameOver())
+		{
+			if(mouseX >= 150 && mouseX <= 150 + 300 && mouseY >= 400 && mouseY <= 400 + 30)
+			{
+				cards.show(container, "Main Menu");
+			}
+			if(mouseX >= 200 && mouseX <= 200 + 200 && mouseY >= 350 && mouseY <= 350 + 30)
+			{
+				this.startGame();
+			}
+		}
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
