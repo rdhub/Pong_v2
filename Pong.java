@@ -29,6 +29,7 @@ public class Pong extends JApplet
 		// Adds the panel to the card layout
 		container.add(mainmenuGUI, "Main Menu");
 		container.add(gameplayGUI, "Game Area");
+		container.add(instructionsGUI, "Instructions");
 		
 		//~ cards.show(container, "Main Menu"); // Sets Main Menu as the first panel to be shown
 		

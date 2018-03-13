@@ -27,13 +27,13 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		this.add(title_label);
 		
 		JLabel playgame_label = new JLabel("Play Game", SwingConstants.CENTER);
-		playgame_label.setFont(new Font("Courier", Font.BOLD, 25));
+		playgame_label.setFont(new Font("Courier", Font.BOLD, 20));
 		playgame_label.setForeground(Color.white);
 		playgame_label.setBounds(230,350,140,25);
 		this.add(playgame_label);
 		
 		JLabel instructions_label = new JLabel("Instructions", SwingConstants.CENTER);
-		instructions_label.setFont(new Font("Courier", Font.BOLD, 25));
+		instructions_label.setFont(new Font("Courier", Font.BOLD, 20));
 		instructions_label.setForeground(Color.white);
 		instructions_label.setBounds(210,400,180,25);
 		this.add(instructions_label);
@@ -48,14 +48,14 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		
-		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 23)
+		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 25)
 		{
 			cards.show(container, "Game Area");
 			gameplayGUI.startGame();
 		}
-		if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 23)
+		if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 25)
 		{
-			;//~ cards.show(container, "Instructions");
+			cards.show(container, "Instructions");
 		}
 	}
 	public void mousePressed(MouseEvent e) {}
