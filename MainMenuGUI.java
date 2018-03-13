@@ -48,14 +48,14 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		
-		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 23)
+		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 25)
 		{
 			cards.show(container, "Game Area");
 			gameplayGUI.startGame();
 		}
-		if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 23)
+		if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 25)
 		{
-			;//~ cards.show(container, "Instructions");
+			cards.show(container, "Instructions");
 		}
 	}
 	public void mousePressed(MouseEvent e) {}
