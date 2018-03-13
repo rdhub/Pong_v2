@@ -7,7 +7,6 @@ public class InstructionsGUI extends JPanel implements MouseListener
 	private Container container;
 	private CardLayout cards;
 	private JTextArea instructions;
-	private JTextArea text;
 	private JLabel main_menu, left_player, right_player, controls;
 	private JLabel w, s;
 	private JLabel i, k;
@@ -27,16 +26,16 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		title_label.setBounds(210,50,180,25);
 		this.add(title_label);
 
-		text = new JTextArea("Each player moves a paddle up and down to hit a ball moving in the field. A player scores a point when " +
+		instructions = new JTextArea("Each player moves a paddle up and down to hit a ball moving in the field. A player scores a point when " +
 								"the opposing player fails to hit ball back. The first player to reach 10 points wins. The game can be " +
 								"played against another human player, or against a computer player.");
-		text.setFont(new Font("Courier", Font.BOLD, 17));
-		text.setLineWrap(true);
-		text.setWrapStyleWord(true);
-		text.setForeground(Color.WHITE);
-		text.setBackground(Color.BLACK);
-		text.setBounds(50, 80, 500, 150);
-		this.add(text);
+		instructions.setFont(new Font("Courier", Font.BOLD, 17));
+		instructions.setLineWrap(true);
+		instructions.setWrapStyleWord(true);
+		instructions.setForeground(Color.WHITE);
+		instructions.setBackground(Color.BLACK);
+		instructions.setBounds(50, 80, 500, 150);
+		this.add(instructions);
 		
 		JLabel controls = new JLabel("Controls", SwingConstants.CENTER);
 		controls.setFont(new Font("Courier", Font.BOLD, 20));
