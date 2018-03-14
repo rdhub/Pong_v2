@@ -109,9 +109,8 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		
 		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
 		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
-		main_menu.setBounds(150, 400, 300, 25);
+		main_menu.setBounds(175, 400, 250, 25);
 		main_menu.setForeground(Color.white);
-		main_menu.setBackground(Color.black);
 		this.add(main_menu);
 	}
 	
@@ -125,7 +124,7 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		int mouseY = e.getY();
 	
 		// Return to main menu button
-		if(mouseX >= 150 && mouseX <= 150 + 300 && mouseY >= 400 && mouseY <= 400 + 30)
+		if(mouseX >= 175 && mouseX <= 150 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 		{
 			cards.show(container, "Main Menu");
 		}

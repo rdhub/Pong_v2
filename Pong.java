@@ -22,7 +22,7 @@ public class Pong extends JApplet
 		gameplayGUI = new GamePlayGUI(container, cards);
 		
 		// Passes the container and layout so that other classes can change panels during the program
-		mainmenuGUI = new MainMenuGUI(container, cards, gameplayGUI);
+		mainmenuGUI = new MainMenuGUI(container, cards);
 		
 		// Passes the container and layout so that other classes can change panels during the program
 		instructionsGUI = new InstructionsGUI(container, cards);

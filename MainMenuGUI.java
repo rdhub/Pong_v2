@@ -7,14 +7,12 @@ public class MainMenuGUI extends JPanel implements MouseListener
 	// Container and layout variables to let the program switch between panels
 	private Container container;
 	private CardLayout cards;
-	private GamePlayGUI gameplayGUI;
 	
-	public MainMenuGUI(Container container, CardLayout cards, GamePlayGUI gameplayGUI)
+	public MainMenuGUI(Container container, CardLayout cards)
 	{
 		// Saves the container and layout used for this program
 		this.container = container;
 		this.cards = cards;
-		this.gameplayGUI = gameplayGUI;
 		
 		this.setLayout(null);
 		this.addMouseListener(this);
@@ -29,13 +27,13 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		JLabel playgame_label = new JLabel("Play Game", SwingConstants.CENTER);
 		playgame_label.setFont(new Font("Courier", Font.BOLD, 20));
 		playgame_label.setForeground(Color.white);
-		playgame_label.setBounds(230,350,140,25);
+		playgame_label.setBounds(240,350,120,25);
 		this.add(playgame_label);
 		
 		JLabel instructions_label = new JLabel("Instructions", SwingConstants.CENTER);
 		instructions_label.setFont(new Font("Courier", Font.BOLD, 20));
 		instructions_label.setForeground(Color.white);
-		instructions_label.setBounds(210,400,180,25);
+		instructions_label.setBounds(220,400,160,25);
 		this.add(instructions_label);
 	}
 	public void paintComponent(Graphics g)
@@ -48,12 +46,11 @@ public class MainMenuGUI extends JPanel implements MouseListener
 		int mouseX = e.getX();
 		int mouseY = e.getY();
 		
-		if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 25)
+		if(mouseX >= 240 && mouseX <= 240 + 120 && mouseY >= 350 && mouseY <= 350 + 25)
 		{
 			cards.show(container, "Game Options");
-			//~ gameplayGUI.startGame();
 		}
-		else if(mouseX >= 210 && mouseX <= 210 + 180 && mouseY >= 400 && mouseY <= 400 + 25)
+		else if(mouseX >= 220 && mouseX <= 220 + 160 && mouseY >= 400 && mouseY <= 400 + 25)
 		{
 			cards.show(container, "Instructions");
 		}

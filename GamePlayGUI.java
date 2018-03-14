@@ -62,20 +62,20 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		
 		play_again = new JLabel("Play Again", SwingConstants.CENTER);
 		play_again.setFont(new Font("Courier", Font.BOLD, 20));
-		play_again.setBounds(200, 350, 200, 25);
+		play_again.setBounds(230, 350, 140, 25);
 		play_again.setForeground(Color.white);
 		play_again.setBackground(Color.black);
 		play_again.setOpaque(true);
-		play_again.setVisible(false); // Hides label initially
+		//~ play_again.setVisible(false); // Hides label initially
 		this.add(play_again);
 		
 		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
 		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
-		main_menu.setBounds(150, 400, 300, 25);
+		main_menu.setBounds(175, 400, 250, 25);
 		main_menu.setForeground(Color.white);
 		main_menu.setBackground(Color.black);
 		main_menu.setOpaque(true);
-		main_menu.setVisible(false); // Hides label initially
+		//~ main_menu.setVisible(false); // Hides label initially
 		this.add(main_menu);
 		
 		
@@ -137,11 +137,11 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		int mouseY = e.getY();
 		if(game.isGameOver())
 		{
-			if(mouseX >= 150 && mouseX <= 150 + 300 && mouseY >= 400 && mouseY <= 400 + 30)
+			if(mouseX >= 175 && mouseX <= 175 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 			{
 				cards.show(container, "Main Menu");
 			}
-			else if(mouseX >= 200 && mouseX <= 200 + 200 && mouseY >= 350 && mouseY <= 350 + 30)
+			else if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 30)
 			{
 				this.startGame();
 			}
