@@ -4,15 +4,24 @@ import javax.swing.*;
 
 public class GameOptionsGUI extends JPanel implements MouseListener
 {
-	// Container and layout variables to let the program switch between panels
 	private Container container;
 	private CardLayout cards;
 	private GamePlayGUI gameplayGUI;
-	private JLabel oneplayer, twoplayer;
-	private JLabel back_button, main_menu;
+	private JTextArea instructions;
+	private JLabel main_menu, left_player, right_player, controls;
+	private JLabel w, s;
+	private JLabel i, k;
+	private JLabel up_L, down_L, up_R, down_R;
 	
 	public GameOptionsGUI(Container container, CardLayout cards, GamePlayGUI gameplayGUI)
 	{
+		this.setLayout(null);
+		this.container = container;
+		this.cards = cards;
+		this.gameplayGUI = gameplayGUI;
+		this.addMouseListener(this);
+		this.setBackground(Color.BLACK);
+		
 		// Saves the container and layout used for this program
 		this.container = container;
 		this.cards = cards;
@@ -34,7 +43,7 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 		twoplayer.setBounds(350,275,200,25);
 		this.add(twoplayer);
 		
-		back_button = new JLabel("Back", SwingConstants.CENTER);
+		JLabel back_button = new JLabel("Back", SwingConstants.CENTER);
 		back_button.setFont(new Font("Courier", Font.BOLD, 20));
 		back_button.setBounds(150, 400, 300, 25);
 		back_button.setForeground(Color.white);
@@ -42,15 +51,19 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 		back_button.setVisible(false);
 		this.add(back_button);
 		
-		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
+		JLabel main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
 		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
 		main_menu.setBounds(150, 400, 300, 25);
 		main_menu.setForeground(Color.white);
 		main_menu.setBackground(Color.black);
 		this.add(main_menu);
+		
 	}
 	
-	public void paintComponent(Graphics g){}
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+	}
 	public void mouseClicked(MouseEvent e)
 	{
 		int mouseX = e.getX();
@@ -66,9 +79,11 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 		{
 			cards.show(container, "Main Menu");
 		}
+			
 	}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e) {}
+
 }
