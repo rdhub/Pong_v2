@@ -109,6 +109,9 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 			if(mouseX >= 70 && mouseX <= 70 + 160 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				computer = true;
+				cards.show(container, "Game Area");
+				gameplayGUI.startGame(computer);
+				
 				main_menu.setVisible(false);
 				back_button.setVisible(true);
 				twoplayer.setVisible(false);
@@ -117,12 +120,14 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 				medium.setVisible(true);
 				hard.setVisible(true);
 				title.setText("Select a difficulty");
+				
+				resetButtons(); // Ignore difficulty settings for now, only 1 difficulty implemented
 			}
 			// Two player button
 			else if(mouseX >= 370 && mouseX <= 370 + 160 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame();
+				gameplayGUI.startGame(computer);
 			}
 			else if(mouseX >= 175 && mouseX <= 150 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 			{
@@ -141,21 +146,21 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 			else if(mouseX >= 260 && mouseX <= 260 + 80 && mouseY >= 170 && mouseY <= 170 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame();
+				gameplayGUI.startGame(computer);
 				resetButtons();
 			}
 			// Medium
 			else if(mouseX >= 250 && mouseX <= 250 + 100 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame();
+				gameplayGUI.startGame(computer);
 				resetButtons();
 			}
 			// Hard
 			else if(mouseX >= 260 && mouseX <= 260 + 80 && mouseY >= 270 && mouseY <= 270 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame();
+				gameplayGUI.startGame(computer);
 				resetButtons();
 			}
 		}

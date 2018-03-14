@@ -13,6 +13,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private JLabel play_again, main_menu;
 	private int score_text_width;
 	private int win_text_width;
+	private boolean computer;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -66,7 +67,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		play_again.setForeground(Color.white);
 		play_again.setBackground(Color.black);
 		play_again.setOpaque(true);
-		//~ play_again.setVisible(false); // Hides label initially
+		play_again.setVisible(false); // Hides label initially
 		this.add(play_again);
 		
 		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
@@ -75,10 +76,10 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		main_menu.setForeground(Color.white);
 		main_menu.setBackground(Color.black);
 		main_menu.setOpaque(true);
-		//~ main_menu.setVisible(false); // Hides label initially
+		main_menu.setVisible(false); // Hides label initially
 		this.add(main_menu);
 		
-		
+		computer = false;
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -101,8 +102,9 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		g.fillRect(game.getPaddleX("right"), game.getPaddleY("right"), game.getPaddleWidth(), game.getPaddleLength());
 	}
 	
-	public void startGame()
+	public void startGame(boolean computer)
 	{
+		this.computer = computer;
 		timer.start();
 		game.resetGame();
 		right_winner.setVisible(false);
@@ -113,6 +115,25 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	}
 	public void actionPerformed(ActionEvent e)
 	{
+		if(computer)
+		{
+			if(game.getPaddleY("right") + game.getPaddleWidth()/2. < game.getBallY())
+			{
+				game.setRightMovingDown(true);
+				game.setRightMovingUp(false);
+			}
+			else if(game.getPaddleY("right") + game.getPaddleWidth()/2. > game.getBallY())
+			{
+				game.setRightMovingDown(false);
+				game.setRightMovingUp(true);
+			}
+			else
+			{
+				game.setRightMovingDown(false);
+				game.setRightMovingUp(false);
+			}
+			
+		}
 		if(!game.isGameOver())
 		{
 			game.updatePositions();
@@ -143,7 +164,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			}
 			else if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 30)
 			{
-				this.startGame();
+				this.startGame(computer);
 			}
 		}
 	}
@@ -165,10 +186,13 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			game.setLeftMovingDown(true);
 			
 		// controls for right player
-		if(letter == 'i')
-			game.setRightMovingUp(true);
-		if(letter == 'k')
-			game.setRightMovingDown(true);
+		if(!computer) // Computer controls right player
+		{
+			if(letter == 'i')
+				game.setRightMovingUp(true);
+			if(letter == 'k')
+				game.setRightMovingDown(true);
+		}
 	}
 	public void keyTyped(KeyEvent e) {}
 	public void keyReleased(KeyEvent e)
@@ -180,11 +204,14 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			game.setLeftMovingUp(false);
 		if(letter == 's')
 			game.setLeftMovingDown(false);
-			
+		
 		// controls for right player
-		if(letter == 'i')
-			game.setRightMovingUp(false);
-		if(letter == 'k')
-			game.setRightMovingDown(false);
+		if(!computer) // Computer controls right player
+		{
+			if(letter == 'i')
+				game.setRightMovingUp(false);
+			if(letter == 'k')
+				game.setRightMovingDown(false);
+		}
 	}
 }
