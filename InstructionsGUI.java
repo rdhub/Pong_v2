@@ -7,7 +7,6 @@ public class InstructionsGUI extends JPanel implements MouseListener
 	private Container container;
 	private CardLayout cards;
 	private JTextArea instructions;
-	private JTextArea text;
 	private JLabel main_menu, left_player, right_player, controls;
 	private JLabel w, s;
 	private JLabel i, k;
@@ -27,16 +26,16 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		title_label.setBounds(210,50,180,25);
 		this.add(title_label);
 
-		text = new JTextArea("Each player moves a paddle up and down to hit a ball moving in the field. A player scores a point when " +
+		instructions = new JTextArea("Each player moves a paddle up and down to hit a ball moving in the field. A player scores a point when " +
 								"the opposing player fails to hit ball back. The first player to reach 10 points wins. The game can be " +
 								"played against another human player, or against a computer player.");
-		text.setFont(new Font("Courier", Font.BOLD, 17));
-		text.setLineWrap(true);
-		text.setWrapStyleWord(true);
-		text.setForeground(Color.WHITE);
-		text.setBackground(Color.BLACK);
-		text.setBounds(50, 80, 500, 150);
-		this.add(text);
+		instructions.setFont(new Font("Courier", Font.BOLD, 17));
+		instructions.setLineWrap(true);
+		instructions.setWrapStyleWord(true);
+		instructions.setForeground(Color.WHITE);
+		instructions.setBackground(Color.BLACK);
+		instructions.setBounds(50, 80, 500, 150);
+		this.add(instructions);
 		
 		JLabel controls = new JLabel("Controls", SwingConstants.CENTER);
 		controls.setFont(new Font("Courier", Font.BOLD, 20));
@@ -110,9 +109,8 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		
 		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
 		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
-		main_menu.setBounds(150, 400, 300, 25);
+		main_menu.setBounds(175, 400, 250, 25);
 		main_menu.setForeground(Color.white);
-		main_menu.setBackground(Color.black);
 		this.add(main_menu);
 	}
 	
@@ -126,7 +124,7 @@ public class InstructionsGUI extends JPanel implements MouseListener
 		int mouseY = e.getY();
 	
 		// Return to main menu button
-		if(mouseX >= 150 && mouseX <= 150 + 300 && mouseY >= 400 && mouseY <= 400 + 30)
+		if(mouseX >= 175 && mouseX <= 150 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 		{
 			cards.show(container, "Main Menu");
 		}

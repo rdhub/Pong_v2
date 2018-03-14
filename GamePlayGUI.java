@@ -13,6 +13,8 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private JLabel play_again, main_menu;
 	private int score_text_width;
 	private int win_text_width;
+	private boolean computer;
+	private int difficulty;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -62,7 +64,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		
 		play_again = new JLabel("Play Again", SwingConstants.CENTER);
 		play_again.setFont(new Font("Courier", Font.BOLD, 20));
-		play_again.setBounds(200, 350, 200, 25);
+		play_again.setBounds(230, 350, 140, 25);
 		play_again.setForeground(Color.white);
 		play_again.setBackground(Color.black);
 		play_again.setOpaque(true);
@@ -71,14 +73,15 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		
 		main_menu = new JLabel("Return to Main Menu", SwingConstants.CENTER);
 		main_menu.setFont(new Font("Courier", Font.BOLD, 20));
-		main_menu.setBounds(150, 400, 300, 25);
+		main_menu.setBounds(175, 400, 250, 25);
 		main_menu.setForeground(Color.white);
 		main_menu.setBackground(Color.black);
 		main_menu.setOpaque(true);
 		main_menu.setVisible(false); // Hides label initially
 		this.add(main_menu);
 		
-		
+		computer = false;
+		difficulty = 1;
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -101,8 +104,10 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		g.fillRect(game.getPaddleX("right"), game.getPaddleY("right"), game.getPaddleWidth(), game.getPaddleLength());
 	}
 	
-	public void startGame()
+	public void startGame(boolean computer, int difficulty)
 	{
+		this.computer = computer;
+		this.difficulty = difficulty;
 		timer.start();
 		game.resetGame();
 		right_winner.setVisible(false);
@@ -113,6 +118,41 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	}
 	public void actionPerformed(ActionEvent e)
 	{
+		if(computer)
+		{
+			// Adds randomness to the computer's movement based on the difficulty setting
+			if(game.getPaddleY("right") + game.getPaddleWidth() < game.getBallY()+game.getBallSize()/2.)
+			{
+				if((int)(Math.random()*100) < difficulty*5 + 65)
+				{
+					game.setRightMovingDown(true);
+					game.setRightMovingUp(false);
+				}
+				else
+				{
+					game.setRightMovingDown(false);
+					game.setRightMovingUp(true);
+				}
+			}
+			else if(game.getPaddleY("right") > game.getBallY())
+			{
+				if((int)(Math.random()*100) < difficulty*5 + 65)
+				{
+					game.setRightMovingDown(false);
+					game.setRightMovingUp(true);
+				}
+				else
+				{
+					game.setRightMovingDown(true);
+					game.setRightMovingUp(false);
+				}
+			}
+			else
+			{
+				game.setRightMovingDown(false);
+				game.setRightMovingUp(false);
+			}					
+		}
 		if(!game.isGameOver())
 		{
 			game.updatePositions();
@@ -137,13 +177,13 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		int mouseY = e.getY();
 		if(game.isGameOver())
 		{
-			if(mouseX >= 150 && mouseX <= 150 + 300 && mouseY >= 400 && mouseY <= 400 + 30)
+			if(mouseX >= 175 && mouseX <= 175 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 			{
 				cards.show(container, "Main Menu");
 			}
-			if(mouseX >= 200 && mouseX <= 200 + 200 && mouseY >= 350 && mouseY <= 350 + 30)
+			else if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 30)
 			{
-				this.startGame();
+				this.startGame(computer,difficulty);
 			}
 		}
 	}
@@ -165,10 +205,13 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			game.setLeftMovingDown(true);
 			
 		// controls for right player
-		if(letter == 'i')
-			game.setRightMovingUp(true);
-		if(letter == 'k')
-			game.setRightMovingDown(true);
+		if(!computer) // Computer controls right player
+		{
+			if(letter == 'i')
+				game.setRightMovingUp(true);
+			if(letter == 'k')
+				game.setRightMovingDown(true);
+		}
 	}
 	public void keyTyped(KeyEvent e) {}
 	public void keyReleased(KeyEvent e)
@@ -180,11 +223,14 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			game.setLeftMovingUp(false);
 		if(letter == 's')
 			game.setLeftMovingDown(false);
-			
+		
 		// controls for right player
-		if(letter == 'i')
-			game.setRightMovingUp(false);
-		if(letter == 'k')
-			game.setRightMovingDown(false);
+		if(!computer) // Computer controls right player
+		{
+			if(letter == 'i')
+				game.setRightMovingUp(false);
+			if(letter == 'k')
+				game.setRightMovingDown(false);
+		}
 	}
 }

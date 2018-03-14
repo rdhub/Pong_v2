@@ -25,7 +25,7 @@ public class GamePlay
 		this.screen_right_edge = screen_right_edge;
 		
 		ballSize = 10;
-		ballMoveSpeed = 5;
+		ballMoveSpeed = 3;
 		ball_dx = ballMoveSpeed;
 		resetBall(); // Resets the ball to the center of the screen
 		
