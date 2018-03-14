@@ -12,6 +12,7 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 	private JLabel back_button, main_menu;
 	private JLabel easy, medium, hard;
 	private boolean computer;
+	private int difficulty;
 	
 	public GameOptionsGUI(Container container, CardLayout cards, GamePlayGUI gameplayGUI)
 	{
@@ -80,6 +81,7 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 		
 		
 		computer = false;
+		difficulty = 1;
 	}
 	
 	public void paintComponent(Graphics g)
@@ -109,8 +111,6 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 			if(mouseX >= 70 && mouseX <= 70 + 160 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				computer = true;
-				cards.show(container, "Game Area");
-				gameplayGUI.startGame(computer);
 				
 				main_menu.setVisible(false);
 				back_button.setVisible(true);
@@ -120,14 +120,12 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 				medium.setVisible(true);
 				hard.setVisible(true);
 				title.setText("Select a difficulty");
-				
-				resetButtons(); // Ignore difficulty settings for now, only 1 difficulty implemented
 			}
 			// Two player button
 			else if(mouseX >= 370 && mouseX <= 370 + 160 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame(computer);
+				gameplayGUI.startGame(computer,difficulty);
 			}
 			else if(mouseX >= 175 && mouseX <= 150 + 250 && mouseY >= 400 && mouseY <= 400 + 30)
 			{
@@ -146,21 +144,24 @@ public class GameOptionsGUI extends JPanel implements MouseListener
 			else if(mouseX >= 260 && mouseX <= 260 + 80 && mouseY >= 170 && mouseY <= 170 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame(computer);
+				difficulty = 1;
+				gameplayGUI.startGame(computer,difficulty);
 				resetButtons();
 			}
 			// Medium
 			else if(mouseX >= 250 && mouseX <= 250 + 100 && mouseY >= 220 && mouseY <= 220 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame(computer);
+				difficulty = 2;
+				gameplayGUI.startGame(computer,difficulty);
 				resetButtons();
 			}
 			// Hard
 			else if(mouseX >= 260 && mouseX <= 260 + 80 && mouseY >= 270 && mouseY <= 270 + 25)
 			{
 				cards.show(container, "Game Area");
-				gameplayGUI.startGame(computer);
+				difficulty = 3;
+				gameplayGUI.startGame(computer,difficulty);
 				resetButtons();
 			}
 		}

@@ -14,6 +14,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	private int score_text_width;
 	private int win_text_width;
 	private boolean computer;
+	private int difficulty;
 	private static final int SCREEN_CENTER_X = 300;
 	private static final int SCREEN_CENTER_Y = 250;
 	private static final int SCREEN_RIGHT_EDGE = 600;
@@ -80,6 +81,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		this.add(main_menu);
 		
 		computer = false;
+		difficulty = 1;
 		timer = new Timer(5, this); // Creates timer for animation
 	}
 	public void paintComponent(Graphics g)
@@ -102,9 +104,10 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		g.fillRect(game.getPaddleX("right"), game.getPaddleY("right"), game.getPaddleWidth(), game.getPaddleLength());
 	}
 	
-	public void startGame(boolean computer)
+	public void startGame(boolean computer, int difficulty)
 	{
 		this.computer = computer;
+		this.difficulty = difficulty;
 		timer.start();
 		game.resetGame();
 		right_winner.setVisible(false);
@@ -117,22 +120,38 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 	{
 		if(computer)
 		{
-			if(game.getPaddleY("right") + game.getPaddleWidth()/2. < game.getBallY())
+			// Adds randomness to the computer's movement based on the difficulty setting
+			if(game.getPaddleY("right") + game.getPaddleWidth() < game.getBallY()+game.getBallSize()/2.)
 			{
-				game.setRightMovingDown(true);
-				game.setRightMovingUp(false);
+				if((int)(Math.random()*100) < difficulty*5 + 65)
+				{
+					game.setRightMovingDown(true);
+					game.setRightMovingUp(false);
+				}
+				else
+				{
+					game.setRightMovingDown(false);
+					game.setRightMovingUp(true);
+				}
 			}
-			else if(game.getPaddleY("right") + game.getPaddleWidth()/2. > game.getBallY())
+			else if(game.getPaddleY("right") > game.getBallY())
 			{
-				game.setRightMovingDown(false);
-				game.setRightMovingUp(true);
+				if((int)(Math.random()*100) < difficulty*5 + 65)
+				{
+					game.setRightMovingDown(false);
+					game.setRightMovingUp(true);
+				}
+				else
+				{
+					game.setRightMovingDown(true);
+					game.setRightMovingUp(false);
+				}
 			}
 			else
 			{
 				game.setRightMovingDown(false);
 				game.setRightMovingUp(false);
-			}
-			
+			}					
 		}
 		if(!game.isGameOver())
 		{
@@ -164,7 +183,7 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			}
 			else if(mouseX >= 230 && mouseX <= 230 + 140 && mouseY >= 350 && mouseY <= 350 + 30)
 			{
-				this.startGame(computer);
+				this.startGame(computer,difficulty);
 			}
 		}
 	}
