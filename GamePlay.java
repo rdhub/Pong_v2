@@ -14,6 +14,7 @@ public class GamePlay
 	private int screen_center_x, screen_center_y, screen_bottom_edge, screen_right_edge;
 	private boolean ball_moving_right;
 	private int left_player_score, right_player_score, winning_score;
+	private int ball_start_deg;
 	
 	private boolean left_moving_up, left_moving_down, right_moving_up, right_moving_down;
 	
@@ -25,7 +26,8 @@ public class GamePlay
 		this.screen_right_edge = screen_right_edge;
 		
 		ballSize = 10;
-		ballMoveSpeed = 3;
+		ball_start_deg = 30;
+		ballMoveSpeed = 2;
 		ball_dx = ballMoveSpeed;
 		resetBall(); // Resets the ball to the center of the screen
 		
@@ -119,7 +121,7 @@ public class GamePlay
 	{
 		ballX = screen_center_x - ballSize/2;
 		ballY = screen_center_y - ballSize/2;
-		int angle = (int)(Math.random()*91-45); // generate a random angle from -45 to +45 degrees
+		int angle = (int)(Math.random()*(2*ball_start_deg + 1)-ball_start_deg); // generate a random angle from -ball_start_deg to +ball_start_deg degrees
 		ball_dy = ballMoveSpeed*Math.sin(Math.toRadians(angle));
 		
 		// Randomize the starting direction of the ball (either left or right)

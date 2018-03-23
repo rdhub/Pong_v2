@@ -116,34 +116,40 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 		main_menu.setVisible(false);
 		this.requestFocus();
 	}
+	//~ if(gstime == 0)
+				//~ gstime = e.getWhen();
+			//~ gctime = e.getWhen();
+			//~ int t = (int)(gctime-gstime);
+			//~ if(errortime-t/1000==0)
+			//~ {
+				//~ error = "";
+				//~ gstime = 0;
+				//~ nogold = false;
+			//~ }
 	public void actionPerformed(ActionEvent e)
 	{
 		if(computer)
 		{
-			// Adds randomness to the computer's movement based on the difficulty setting
-			if(game.getPaddleY("right") + game.getPaddleWidth() < game.getBallY()+game.getBallSize()/2.)
+			// Gives computer a delayed reaction based on the difficulty and where the ball is in the screen
+			// Easy - computer only moves paddle when ball is 1/6 screen width from the right
+			// Medium - computer moves when ball is 2/6 * screen width from the right
+			// Hard - computer moves when ball crosses the half way point (3/6 screen width from right)
+			if(game.getBallX()+game.getBallSize()/2. > SCREEN_RIGHT_EDGE - SCREEN_RIGHT_EDGE/6. * difficulty)
 			{
-				if((int)(Math.random()*100) < difficulty*5 + 65)
+				
+				if(game.getPaddleY("right") + game.getPaddleLength() < game.getBallY()+game.getBallSize()/2.)
 				{
 					game.setRightMovingDown(true);
 					game.setRightMovingUp(false);
 				}
-				else
-				{
-					game.setRightMovingDown(false);
-					game.setRightMovingUp(true);
-				}
-			}
-			else if(game.getPaddleY("right") > game.getBallY())
-			{
-				if((int)(Math.random()*100) < difficulty*5 + 65)
+				else if(game.getPaddleY("right")  > game.getBallY()+game.getBallSize()/2.)
 				{
 					game.setRightMovingDown(false);
 					game.setRightMovingUp(true);
 				}
 				else
 				{
-					game.setRightMovingDown(true);
+					game.setRightMovingDown(false);
 					game.setRightMovingUp(false);
 				}
 			}
@@ -151,8 +157,9 @@ public class GamePlayGUI extends JPanel implements MouseListener, ActionListener
 			{
 				game.setRightMovingDown(false);
 				game.setRightMovingUp(false);
-			}					
+			}
 		}
+		
 		if(!game.isGameOver())
 		{
 			game.updatePositions();
